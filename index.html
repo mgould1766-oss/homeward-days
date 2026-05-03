@@ -1,68 +1,268 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Homeward Bound · The Grand Adventure</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Homeward Bound Days</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
 <style>
-:root{--sky:#DDECF8;--rose:#F7DDE2;--lilac:#D7C9E8;--ink:#2F3A4A;--muted:#6B7280;--line:#D9E6F2;--blue:#92A1C3;--white:#fff;--shadow:0 12px 32px rgba(47,58,74,.10)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Open Sans",Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--sky),#EEF7FC 50%,#fff);line-height:1.6}.wrap{max-width:1120px;margin:0 auto;padding:32px 18px 70px}.hero,.map-card,.day{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}.hero{padding:46px 30px;text-align:center;background:linear-gradient(135deg,#fff 0%,#F7FBFF 55%,var(--rose) 100%)}.eyebrow{margin:0 0 10px;color:var(--blue);font-weight:700;letter-spacing:1.8px;text-transform:uppercase;font-size:13px}h1,h2,h3{font-family:"Quicksand",sans-serif}h1{margin:0;font-size:clamp(38px,6vw,62px);line-height:1.05}.subtitle{max-width:760px;margin:18px auto 0;color:var(--muted);font-size:18px}.pills{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:24px}.pill,.tag{background:#fff;border:1px solid var(--line);border-radius:999px;font-weight:700}.pill{padding:9px 15px;font-size:14px}.map-card{margin-top:30px;padding:18px}.map-head h2{margin:0;font-size:30px}.map-head p{margin:4px 0 14px;color:var(--muted);font-size:14px}#map{height:520px;border-radius:24px;border:1px solid var(--line);overflow:hidden}.day-nav{position:sticky;top:0;z-index:900;margin:24px 0;background:rgba(255,255,255,.93);border:1px solid var(--line);border-radius:999px;padding:10px;overflow-x:auto;box-shadow:0 8px 24px rgba(47,58,74,.08)}.day-nav-inner{display:flex;gap:8px;min-width:max-content}.day-nav a{color:var(--ink);text-decoration:none;background:#F8FBFE;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700}.day{margin:26px 0;padding:26px;scroll-margin-top:95px}.day-kicker{margin:0 0 8px;color:#B86F85;font-size:13px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}.day h2{margin:0;font-size:clamp(26px,4vw,38px);line-height:1.12}.meta{margin:10px 0 0;color:var(--muted);font-weight:700}.summary{max-width:780px;margin:16px 0 0;color:#4B5563}.day-grid{display:grid;grid-template-columns:1.45fr .9fr;gap:18px;margin-top:22px}.timeline{position:relative;padding-left:28px}.timeline:before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:3px;border-radius:999px;background:linear-gradient(180deg,var(--rose),var(--blue),var(--lilac))}.stop{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px}.stop:before{content:"";position:absolute;left:-27px;top:21px;width:18px;height:18px;border-radius:50%;background:var(--rose);border:3px solid #fff;box-shadow:0 3px 9px rgba(47,58,74,.18)}.stop.drive:before{background:var(--blue)}.stop.food:before{background:#E8B86D}.stop.hotel:before{background:var(--lilac)}.stop.special:before{background:#7BAE8C}.stop-time{margin:0 0 4px;color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}.stop h3{margin:0;font-size:20px}.stop p{margin:8px 0 0;color:#4B5563;font-size:14px}.side{background:linear-gradient(180deg,#fff,#F7FBFF);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px}.side h3{margin:0 0 10px;font-size:21px}.side ul{margin:0;padding-left:19px;color:#4B5563;font-size:14px}.side li{margin:7px 0}@media(max-width:820px){.day-grid{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:20px 12px 50px}.hero{padding:36px 20px;border-radius:26px}#map{height:420px}.day{padding:20px;border-radius:24px}}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Open Sans',sans-serif;
+  color:#2F3A4A;
+  background:linear-gradient(180deg,#EAF4FB 0%,#fff 100%);
+}
+
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:34px 18px 70px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#ffffff 0%,#F5FAFD 60%,#F7DDE2 100%);
+  border-radius:28px;
+  padding:42px 26px;
+  text-align:center;
+  box-shadow:0 12px 30px rgba(47,58,74,.08);
+}
+
+.kicker{
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-weight:800;
+  color:#92A1C3;
+}
+
+h1{
+  font-family:'Quicksand',sans-serif;
+  font-size:46px;
+  margin:12px 0;
+  color:#2F3A4A;
+}
+
+.sub{
+  max-width:720px;
+  margin:0 auto 22px;
+  line-height:1.6;
+  color:#637083;
+}
+
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+
+.pill{
+  background:#fff;
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 5px 14px rgba(47,58,74,.08);
+}
+
+.day-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:28px;
+  justify-content:center;
+  background:#fff;
+  border-radius:999px;
+  padding:12px;
+  box-shadow:0 8px 20px rgba(47,58,74,.06);
+}
+
+.day-buttons button,
+.nav button{
+  border:0;
+  background:#F5FAFD;
+  border-radius:999px;
+  padding:10px 15px;
+  font-weight:800;
+  color:#2F3A4A;
+  cursor:pointer;
+}
+
+.day-buttons button.active{
+  background:#D7C9E8;
+}
+
+.day-card{
+  display:none;
+  background:#fff;
+  border-radius:24px;
+  margin-top:24px;
+  padding:28px;
+  box-shadow:0 10px 26px rgba(47,58,74,.08);
+}
+
+.day-card.active{
+  display:block;
+}
+
+.day-label{
+  color:#E7B7C8;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:13px;
+}
+
+.route{
+  font-family:'Quicksand',sans-serif;
+  font-size:34px;
+  font-weight:700;
+  margin:8px 0;
+}
+
+.theme{
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+.detail{
+  line-height:1.65;
+  color:#526070;
+}
+
+.boxes{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:20px;
+}
+
+.box{
+  border:1px solid #E7EDF5;
+  border-radius:18px;
+  padding:18px;
+  background:#FCFDFF;
+}
+
+.box h3{
+  margin:0 0 8px;
+  font-size:16px;
+}
+
+.nav{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:24px;
+}
+
+.nav button{
+  background:#fff;
+  box-shadow:0 8px 18px rgba(47,58,74,.12);
+}
+
+@media(max-width:700px){
+  h1{font-size:36px}
+  .route{font-size:28px}
+  .boxes{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
-<div class="wrap">
+<div class="wrap" id="top">
 
-<header class="hero">
-<p class="eyebrow">Homeward Bound · The Grand Adventure</p>
-<h1>California to Goldsboro</h1>
-<p class="subtitle">California → Condors → Plains → Tennessee → Perry → Home. A journey shaped by meaning, memory, and the moments waiting at the end.</p>
-<div class="pills"><span class="pill">🌲 Yosemite</span><span class="pill">🦅 Condor Day</span><span class="pill">🪶 Pueblos</span><span class="pill">🤠 Cowboy Day</span><span class="pill">❤️ Perry</span></div>
-</header>
+<section class="hero">
+  <div class="kicker">Homeward Bound · The Grand Adventure</div>
+  <h1>Carrying the Adventure Home</h1>
+  <p class="sub">
+    The return trip is quieter, wider, and more reflective — Yosemite, Zion, condors, cowboy memories, family, and the long road back to Goldsboro.
+  </p>
+  <div class="pills">
+    <span class="pill">🏞️ Yosemite</span>
+    <span class="pill">🦅 Condor Day</span>
+    <span class="pill">🤠 Cowboy Day</span>
+    <span class="pill">💛 Perry Family Stop</span>
+  </div>
+</section>
 
-<section class="map-card"><div class="map-head"><h2>Homeward Route Overview</h2><p>The return journey from California back to North Carolina, with Perry added as a meaningful stop.</p></div><div id="map"></div></section>
+<div class="day-buttons" id="dayButtons"></div>
 
-<nav class="day-nav"><div class="day-nav-inner">
-<a href="#day-1">Day 1</a><a href="#day-2">Day 2</a><a href="#day-3">Day 3</a><a href="#day-4">Day 4</a><a href="#day-5">Day 5</a><a href="#day-6">Day 6</a><a href="#day-7">Day 7</a><a href="#day-8">Day 8</a><a href="#day-9">Day 9</a><a href="#day-10">Day 10</a><a href="#day-11">Day 11</a><a href="#day-12">Day 12</a>
-</div></nav>
+<section id="dayContainer"></section>
 
-<section class="day" id="day-1"><p class="day-kicker">Day 1</p><h2>Buena Park → Oakhurst</h2><p class="meta">Yosemite setup day</p><p class="summary">A simple first leg that positions everyone close to Yosemite’s south entrance.</p><div class="day-grid"><div class="timeline"><article class="stop drive"><h3>Head toward Yosemite country</h3><p>Keep this day easy: drive, dinner, settle in.</p></article><article class="stop hotel"><h3>Hampton Inn Oakhurst-Yosemite</h3><p>Predictable, close to the park, and perfect for an early start.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>Pack park bags separately.</li><li>Early bedtime matters.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-2"><p class="day-kicker">Day 2</p><h2>Yosemite → Tehachapi</h2><p class="summary">Cane-friendly Yosemite highlights, then a flow-through drive toward the next destination.</p><div class="day-grid"><div class="timeline"><article class="stop special"><h3>Tunnel View</h3><p>Iconic view with very little walking.</p></article><article class="stop special"><h3>Bridalveil Fall</h3><p>Safer waterfall option. Go only as far as feels good.</p></article><article class="stop food"><h3>Base Camp Eatery</h3><p>Easy seating and vegetarian-friendly options.</p></article><article class="stop hotel"><h3>Hampton Inn Tehachapi</h3><p>Quiet, practical overnight.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>This is not a full Yosemite day.</li><li>The win is seeing Yosemite without exhausting everyone.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-3"><p class="day-kicker">Day 3</p><h2>Tehachapi → Las Vegas</h2><p class="summary">Transit day. Vegas is a pass-through stop, not the destination.</p><div class="day-grid"><div class="timeline"><article class="stop hotel"><h3>Hampton Inn & Suites Las Vegas Red Rock</h3><p>Off-strip and quieter.</p></article><article class="stop special"><h3>Drive the Strip</h3><p>Show the kids the lights from the car. No parking, no walking.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>Keep Vegas controlled and simple.</li><li>Eat near the hotel.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-4"><p class="day-kicker">Day 4</p><h2>Las Vegas → Page via Zion</h2><p class="summary">Drive through Zion west-to-east using the America the Beautiful Lifetime Senior Pass.</p><div class="day-grid"><div class="timeline"><article class="stop special"><h3>Zion-Mount Carmel Highway</h3><p>Scenic drive-through, tunnel, canyon views, and optional pull-offs.</p></article><article class="stop hotel"><h3>Hampton Inn & Suites Page - Lake Powell</h3><p>Sets up Condor Day.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>Skip main canyon shuttles.</li><li>Let Zion be a drive-through treasure.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-5"><p class="day-kicker">Day 5 · Condor Day</p><h2>Page → Navajo Bridge → Page</h2><p class="summary">The emotional highlight: California condors at Navajo Bridge.</p><div class="day-grid"><div class="timeline"><article class="stop special"><h3>Navajo Bridge</h3><p>Flat pedestrian bridge, cane-friendly, with a real chance to see condors. Bring binoculars.</p></article><article class="stop food"><h3>Lunch near Marble Canyon Lodge</h3><p>Simple, nearby, low-stress.</p></article><article class="stop hotel"><h3>Page again</h3><p>Rest, pool, laundry, and a calm evening.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>Do not rush this stop.</li><li>Morning is best.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-6"><p class="day-kicker">Day 6</p><h2>Page → Albuquerque</h2><p class="summary">Pueblos day, centered around Acoma Pueblo / Sky City Cultural Center.</p><div class="day-grid"><div class="timeline"><article class="stop special"><h3>Acoma Pueblo / Sky City Cultural Center</h3><p>The cultural center is enough. Guided tour only if walking and energy allow.</p></article><article class="stop hotel"><h3>Hampton Inn Albuquerque area</h3><p>Easy overnight before turning north.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>Respect photography rules.</li><li>This is a living community.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-7"><p class="day-kicker">Day 7</p><h2>Albuquerque → Trinidad</h2><p class="summary">Bonus Colorado day with a changing landscape.</p><div class="day-grid"><div class="timeline"><article class="stop special"><h3>Optional Capulin Volcano</h3><p>Drive to the top if timing works.</p></article><article class="stop hotel"><h3>Hampton Inn Trinidad</h3><p>Small-town Colorado stop.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>Elevation increases.</li><li>Expect cooler air.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-8"><p class="day-kicker">Day 8 · Cowboy Day</p><h2>Trinidad → Dodge City</h2><p class="summary">Maverick’s cowboy day. Save the outfit for Boot Hill.</p><div class="day-grid"><div class="timeline"><article class="stop special"><h3>Boot Hill Museum</h3><p>Old West backdrop and a perfect Maverick memory.</p></article><article class="stop hotel"><h3>Hampton Inn & Suites Dodge City</h3><p>Easy overnight after Cowboy Day.</p></article></div><aside><div class="side"><h3>Maverick note</h3><ul><li>Pack the outfit where it is easy to grab.</li><li>Let him lead for a few minutes.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-9"><p class="day-kicker">Day 9</p><h2>Dodge City → Little Rock</h2><p class="meta">Longer travel day</p><p class="summary">This is the long push day that turns the route south and east toward Perry.</p><div class="day-grid"><div class="timeline"><article class="stop drive"><h3>Through Wichita, then south/east</h3><p>Wichita is only the turn point, not an overnight stop.</p></article><article class="stop food"><h3>Diner or simple road lunch</h3><p>Use easy vegetarian-friendly options: omelet, grilled cheese, salad, pancakes, or sides.</p></article><article class="stop hotel"><h3>Hampton Inn Little Rock area</h3><p>End the long day with a predictable hotel.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>This is the day to start early.</li><li>Plan two short breaks.</li><li>Keep dinner very simple.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-10"><p class="day-kicker">Day 10</p><h2>Little Rock → Nashville</h2><p class="summary">A more manageable drive day after the long push.</p><div class="day-grid"><div class="timeline"><article class="stop drive"><h3>Arkansas to Tennessee</h3><p>Let this be steady and uncomplicated.</p></article><article class="stop hotel"><h3>Hampton Inn Nashville area</h3><p>Choose easy access over downtown chaos.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>No need to sightsee Nashville.</li><li>This is a recovery-and-positioning day.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-11"><p class="day-kicker">Day 11 · Perry</p><h2>Nashville → Perry</h2><p class="summary">A meaningful stop for family and the expected great-grandchild.</p><div class="day-grid"><div class="timeline"><article class="stop drive"><h3>South toward Georgia</h3><p>This day has a purpose beyond mileage.</p></article><article class="stop hotel"><h3>Hampton Inn Perry</h3><p>Planned Perry hotel. Address to verify before booking: 102 Hampton Ct, Perry, GA 31069.</p></article></div><aside><div class="side"><h3>Memory note</h3><ul><li>This stop is part of the family story.</li><li>Keep the day lighter if possible.</li></ul></div></aside></div></section>
-
-<section class="day" id="day-12"><p class="day-kicker">Day 12</p><h2>Perry → Goldsboro</h2><p class="summary">Final stretch home.</p><div class="day-grid"><div class="timeline"><article class="stop drive"><h3>Georgia to North Carolina</h3><p>One last long but familiar-feeling drive.</p></article><article class="stop special"><h3>Goldsboro</h3><p>Home. The story closes here.</p></article></div><aside><div class="side"><h3>What to know</h3><ul><li>Keep lunch simple.</li><li>No need to add extra stops.</li><li>Let this be the closing chapter.</li></ul></div></aside></div></section>
+<div class="nav">
+  <button onclick="prevDay()">← Previous Day</button>
+  <button onclick="goTop()">↑ Top</button>
+  <button onclick="nextDay()">Next Day →</button>
+</div>
 
 </div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
-const stops=[["Buena Park, CA",33.8675,-117.9981,"Start"],["Oakhurst, CA",37.3280,-119.6493,"Day 1"],["Tehachapi, CA",35.1322,-118.4489,"Day 2"],["Las Vegas, NV",36.1716,-115.1391,"Day 3"],["Page, AZ",36.9147,-111.4558,"Days 4–5"],["Albuquerque, NM",35.0844,-106.6504,"Day 6"],["Trinidad, CO",37.1695,-104.5005,"Day 7"],["Dodge City, KS",37.7528,-100.0171,"Day 8"],["Little Rock, AR",34.7465,-92.2896,"Day 9"],["Nashville, TN",36.1627,-86.7816,"Day 10"],["Perry, GA",32.4582,-83.7316,"Day 11"],["Goldsboro, NC",35.3849,-77.9928,"Home"]];
-const map=L.map("map",{scrollWheelZoom:false});
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"&copy; OpenStreetMap contributors"}).addTo(map);
-const route=stops.map(s=>[s[1],s[2]]);
-const line=L.polyline(route,{color:"#92A1C3",weight:5,opacity:.9}).addTo(map);
-const icon=L.divIcon({className:"",html:'<div style="width:22px;height:22px;border-radius:50%;background:white;border:3px solid #92A1C3;box-shadow:0 3px 10px rgba(0,0,0,.2)"></div>',iconSize:[22,22],iconAnchor:[11,11]});
-stops.forEach((s)=>L.marker([s[1],s[2]],{icon}).addTo(map).bindPopup("<strong>"+s[0]+"</strong><br>"+s[3]));
-map.fitBounds(line.getBounds(),{padding:[30,30]});
+const days = [
+  ["Day 1","Buena Park → Oakhurst","Setting up Yosemite","A transition day from California fun into mountain country, ending near Yosemite so the next day can stay calmer.","Drive from Buena Park","Hampton Inn Oakhurst-Yosemite","This is a positioning day. Keep expectations simple and arrive ready for Yosemite."],
+  ["Day 2","Yosemite → Tehachapi","Cane-friendly wonder","A gentle Yosemite day focused on big views without overdoing the walking.","Tunnel View / Bridalveil Fall / Base Camp Eatery","Hampton Inn Tehachapi","Use the America the Beautiful Lifetime Senior Pass. Bridalveil Fall, not Yosemite Falls."],
+  ["Day 3","Tehachapi → Las Vegas","Transit and lights","A practical drive day with a low-effort evening look at the Las Vegas Strip from the car.","Drive to Las Vegas Red Rock area","Hampton Inn & Suites Las Vegas Red Rock","Stay in the car for the Strip drive. No walking, parking, or downtown chaos."],
+  ["Day 4","Las Vegas → Page via Zion","The scenic road east","A beautiful drive through Zion-Mount Carmel Highway, traveling west to east for the preferred view.","Zion-Mount Carmel Highway","Hampton Inn & Suites Page - Lake Powell","Treat Zion as a drive-through scenic experience, not a hiking day."],
+  ["Day 5","Condor Day: Page → Navajo Bridge → Page","Looking for wings over the canyon","A quieter day built around Navajo Bridge, binoculars, and the hope of seeing condors.","Navajo Bridge / Marble Canyon area","Page again","Flat, cane-friendly pedestrian bridge. Bring binoculars. Lunch near Marble Canyon Lodge."],
+  ["Day 6","Page → Albuquerque","Culture and desert distance","A longer travel day with Acoma Pueblo / Sky City as the flexible cultural anchor.","Acoma Pueblo / Sky City Cultural Center","Hampton Inn Albuquerque area","The cultural center is enough. Guided tour only if energy and walking allow."],
+  ["Day 7","Albuquerque → Trinidad","Bonus Colorado day","A scenic positioning day with the option for Capulin Volcano if the day feels easy.","Optional Capulin Volcano","Hampton Inn Trinidad","This is a bonus state day. Keep it flexible."],
+  ["Day 8","Trinidad → Dodge City","Maverick Cowboy Day","The plains begin, and Dodge City becomes the perfect cowboy memory day.","Boot Hill Museum","Hampton Inn & Suites Dodge City","Maverick’s cowboy outfit belongs here. This is his day."],
+  ["Day 9","Dodge City → Little Rock","The long push","A practical, longer driving day. Wichita is only the turn point, not a stop.","Drive through / turn south near Wichita","Hampton Inn Little Rock area","This is a get-there day. Keep stops simple."],
+  ["Day 10","Little Rock → Nashville","Recovery and repositioning","A steadier day toward Tennessee, with Nashville kept simple and away from downtown chaos.","Drive to Nashville area","Hampton Inn Nashville area","Choose easy access over sightseeing. This is a recovery/positioning day."],
+  ["Day 11","Nashville → Perry","A meaningful family stop","The road shifts from travel plan to family story, with Perry becoming an emotional anchor.","Drive to Perry, Georgia","Hampton Inn Perry","This stop matters because family is part of the reason for the route."],
+  ["Day 12","Perry → Goldsboro","The final stretch home","The last day brings the trip back to where it began — full circle, with stories to carry home.","Drive from Perry to Goldsboro","Home","Final stretch. No big sightseeing needed. Just home."]
+];
+
+let current = 0;
+
+function buildDays(){
+  const buttons = document.getElementById("dayButtons");
+  const container = document.getElementById("dayContainer");
+
+  days.forEach((d,i)=>{
+    const b=document.createElement("button");
+    b.textContent=d[0];
+    b.onclick=()=>showDay(i);
+    buttons.appendChild(b);
+
+    const card=document.createElement("div");
+    card.className="day-card";
+    card.innerHTML=`
+      <div class="day-label">${d[0]}</div>
+      <div class="route">${d[1]}</div>
+      <div class="theme">${d[2]}</div>
+      <div class="detail">${d[3]}</div>
+      <div class="boxes">
+        <div class="box"><h3>Drive / Stop</h3><p><strong>${d[4]}</strong></p></div>
+        <div class="box"><h3>Stay / Anchor</h3><p><strong>${d[5]}</strong></p></div>
+        <div class="box"><h3>What to know</h3><p>${d[6]}</p></div>
+        <div class="box"><h3>Memory prompt</h3><p>What part of today felt like something we’ll talk about later?</p></div>
+      </div>`;
+    container.appendChild(card);
+  });
+
+  showDay(0);
+}
+
+function showDay(i){
+  current=i;
+  document.querySelectorAll(".day-card").forEach(c=>c.classList.remove("active"));
+  document.querySelectorAll(".day-buttons button").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".day-card")[i].classList.add("active");
+  document.querySelectorAll(".day-buttons button")[i].classList.add("active");
+}
+
+function nextDay(){ if(current < days.length-1) showDay(current+1); }
+function prevDay(){ if(current > 0) showDay(current-1); }
+function goTop(){ document.getElementById("top").scrollIntoView({behavior:"smooth"}); }
+
+buildDays();
 </script>
+
 </body>
 </html>
