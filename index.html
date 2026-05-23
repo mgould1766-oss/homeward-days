@@ -8,96 +8,164 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-  body {
-  background: pink !important;
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #2F3A4A;
+  background: linear-gradient(180deg, #EAF4FB 0%, #fff 100%);
 }
-/* MOBILE FIX — HOMEWARD DAYS */
-@media (max-width: 768px) {
 
+.wrap {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 24px 18px 70px;
+}
+
+.day-buttons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 18px;
+  box-shadow: 0 10px 26px rgba(47,58,74,.08);
+  margin-bottom: 24px;
+}
+
+.day-buttons button,
+.nav button {
+  border: 0;
+  background: #F5FAFD;
+  border-radius: 999px;
+  padding: 12px 10px;
+  font-weight: 800;
+  color: #2F3A4A;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.day-buttons button.active {
+  background: #D7C9E8;
+}
+
+.day-card {
+  display: none;
+  background: #fff;
+  border-radius: 30px;
+  padding: 32px;
+  box-shadow: 0 10px 26px rgba(47,58,74,.08);
+}
+
+.day-card.active {
+  display: block;
+}
+
+.day-label {
+  color: #E7B7C8;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.route {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 10px 0;
+}
+
+.theme {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.detail {
+  line-height: 1.65;
+  color: #526070;
+  font-size: 17px;
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.box {
+  border: 1px solid #E7EDF5;
+  border-radius: 18px;
+  padding: 18px;
+  background: #FCFDFF;
+}
+
+.box h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.nav button {
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(47,58,74,.12);
+}
+
+@media (max-width: 768px) {
   .wrap {
-    padding: 10px 10px 40px !important;
+    padding: 18px 14px 50px;
   }
 
   .day-buttons {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 10px !important;
-    border-radius: 28px !important;
-    padding: 18px !important;
-    margin: 0 auto 20px !important;
-    max-width: 360px !important;
-    background: #ffffff !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 16px;
+    border-radius: 26px;
   }
 
   .day-buttons button {
-    padding: 10px 6px !important;
-    font-size: 15px !important;
-    min-width: 0 !important;
-    width: 100% !important;
+    font-size: 15px;
+    padding: 11px 6px;
   }
 
   .day-card {
-    margin-top: 18px !important;
-    padding: 22px !important;
-    border-radius: 24px !important;
+    padding: 24px;
+    border-radius: 26px;
   }
 
   .route {
-    font-size: 30px !important;
-    line-height: 1.15 !important;
-  }
-
-  .theme {
-    font-size: 18px !important;
-    line-height: 1.35 !important;
-  }
-
-  .detail {
-    font-size: 16px !important;
-    line-height: 1.55 !important;
+    font-size: 32px;
   }
 
   .boxes {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-
-  .box {
-    padding: 14px !important;
-    border-radius: 16px !important;
+    grid-template-columns: 1fr;
   }
 
   .nav {
-    flex-wrap: wrap !important;
-    gap: 10px !important;
+    flex-wrap: wrap;
   }
-
-  .nav button {
-    font-size: 14px !important;
-    padding: 10px 14px !important;
-  }
-}
-@media(max-width:700px){
-  .route{font-size:28px}
-  .boxes{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 <div class="wrap" id="top">
+  <div class="day-buttons" id="dayButtons"></div>
+  <section id="dayContainer"></section>
 
-<div class="day-buttons" id="dayButtons"></div>
-
-<section id="dayContainer"></section>
-
-<div class="nav">
-  <button onclick="prevDay()">← Previous Day</button>
-  <button onclick="goTop()">↑ Top</button>
-  <button onclick="nextDay()">Next Day →</button>
-</div>
-
+  <div class="nav">
+    <button onclick="prevDay()">← Previous Day</button>
+    <button onclick="goTop()">↑ Top</button>
+    <button onclick="nextDay()">Next Day →</button>
+  </div>
 </div>
 
 <script>
@@ -123,14 +191,14 @@ function buildDays(){
   const container = document.getElementById("dayContainer");
 
   days.forEach((d,i)=>{
-    const b=document.createElement("button");
-    b.textContent=d[0];
-    b.onclick=()=>showDay(i);
+    const b = document.createElement("button");
+    b.textContent = d[0];
+    b.onclick = () => showDay(i);
     buttons.appendChild(b);
 
-    const card=document.createElement("div");
-    card.className="day-card";
-    card.innerHTML=`
+    const card = document.createElement("div");
+    card.className = "day-card";
+    card.innerHTML = `
       <div class="day-label">${d[0]}</div>
       <div class="route">${d[1]}</div>
       <div class="theme">${d[2]}</div>
@@ -148,19 +216,26 @@ function buildDays(){
 }
 
 function showDay(i){
-  current=i;
-  document.querySelectorAll(".day-card").forEach(c=>c.classList.remove("active"));
-  document.querySelectorAll(".day-buttons button").forEach(b=>b.classList.remove("active"));
+  current = i;
+  document.querySelectorAll(".day-card").forEach(c => c.classList.remove("active"));
+  document.querySelectorAll(".day-buttons button").forEach(b => b.classList.remove("active"));
   document.querySelectorAll(".day-card")[i].classList.add("active");
   document.querySelectorAll(".day-buttons button")[i].classList.add("active");
 }
 
-function nextDay(){ if(current < days.length-1) showDay(current+1); }
-function prevDay(){ if(current > 0) showDay(current-1); }
-function goTop(){ document.getElementById("top").scrollIntoView({behavior:"smooth"}); }
+function nextDay(){ 
+  if(current < days.length - 1) showDay(current + 1); 
+}
+
+function prevDay(){ 
+  if(current > 0) showDay(current - 1); 
+}
+
+function goTop(){ 
+  document.getElementById("top").scrollIntoView({behavior:"smooth"}); 
+}
 
 buildDays();
 </script>
-
 </body>
 </html>
