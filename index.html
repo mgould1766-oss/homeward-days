@@ -8,7 +8,91 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
+/* MOBILE FIXES FOR HOMEWARD / OUTBOUND PAGES */
+@media (max-width: 768px) {
+
+  /* Main cards */
+  .route-card,
+  .journey-card,
+  .day-card {
+    padding: 24px !important;
+    border-radius: 28px !important;
+    margin-bottom: 24px !important;
+  }
+
+  /* Route overview title */
+  .route-card h2,
+  .journey-card h2 {
+    font-size: 2.2rem !important;
+    line-height: 1.05 !important;
+    letter-spacing: -1px;
+  }
+
+  /* Route intro text */
+  .route-card p,
+  .journey-card p {
+    font-size: 1.15rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Map sizing */
+  .route-map iframe,
+  .route-map {
+    height: 240px !important;
+    border-radius: 22px !important;
+    overflow: hidden;
+  }
+
+  /* Day selector container */
+  .day-selector-wrapper {
+    padding: 22px 14px !important;
+    border-radius: 30px !important;
+  }
+
+  /* Circular background */
+  .day-selector-circle {
+    width: 100% !important;
+    max-width: 340px !important;
+    height: auto !important;
+    padding: 22px 14px !important;
+    border-radius: 50px !important;
+  }
+
+  /* Button grid */
+  .day-selector-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+    justify-items: center;
+  }
+
+  /* Day buttons */
+  .day-button {
+    width: 92px !important;
+    height: 52px !important;
+    border-radius: 999px !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+  }
+
+  /* Route stop cards */
+  .route-stop-card {
+    padding: 28px !important;
+    border-radius: 30px !important;
+  }
+
+  /* Route titles */
+  .route-stop-card h3 {
+    font-size: 2.1rem !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Smaller subtitles */
+  .route-stop-card p {
+    font-size: 1.05rem !important;
+    line-height: 1.5 !important;
+  }
+}
 
 body{
   margin:0;
